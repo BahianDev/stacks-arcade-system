@@ -152,7 +152,7 @@ export const Header: React.FC<HeaderProps> = ({ title, onOpenBalance }) => {
                 >
                   <span>Connect Wallet</span>
                 </button>
-                {balanceButton}
+                {isConnected && balanceButton}
               </div>
             )}
             <div className="relative">
