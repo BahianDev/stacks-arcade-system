@@ -3,6 +3,7 @@ import { MusicControl } from "../ui/MusicControl";
 import { audioManager } from "../../utils/audio";
 import { showConnect } from "@stacks/connect";
 import { UserSession, AppConfig } from "@stacks/auth";
+import { usePointsBalance } from "../../hooks/usePointsBalance";
 
 interface HeaderProps {
   title: string;
@@ -17,6 +18,11 @@ export const Header: React.FC<HeaderProps> = ({ title, onOpenBalance }) => {
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
   const [userAddress, setUserAddress] = useState<string>("");
+
+  const { asString } = usePointsBalance({
+    playerAddress: userAddress,
+    pollMs: 0,
+  });
 
   useEffect(() => {
     if (userSession.isUserSignedIn()) {
@@ -126,7 +132,7 @@ export const Header: React.FC<HeaderProps> = ({ title, onOpenBalance }) => {
                   }}
                   title={userAddress}
                 >
-                  {formatAddress(userAddress)}
+                  {formatAddress(userAddress)} ({asString} POINTS) 
                 </span>
                 {balanceButton}
                 <button

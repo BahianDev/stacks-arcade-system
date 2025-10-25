@@ -28,8 +28,8 @@ function App() {
             removeDelay: 1000,
             style: {
               background: "#000000",
-              color: "rgb(131, 232, 63)",
-              border: "1px solid rgb(131, 232, 63)",
+              color: "#ffffff",
+              border: "1px solid #ffffff",
             },
             success: {
               duration: 3000,

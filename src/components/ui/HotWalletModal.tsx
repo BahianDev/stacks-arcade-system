@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { openSTXTransfer, showConnect, getUserData } from "@stacks/connect";
 import { AnchorMode } from "@stacks/transactions";
-import { STACKS_TESTNET, TransactionVersion } from "@stacks/network";
+import { STACKS_TESTNET } from "@stacks/network";
 import {
   generateSecretKey,
   generateWallet,
