@@ -6,12 +6,13 @@ import { UserSession, AppConfig } from "@stacks/auth";
 
 interface HeaderProps {
   title: string;
+  onOpenBalance?: () => void;
 }
 
 const appConfig = new AppConfig(["store_write", "publish_data"]);
 const userSession = new UserSession({ appConfig });
 
-export const Header: React.FC<HeaderProps> = ({ title }) => {
+export const Header: React.FC<HeaderProps> = ({ title, onOpenBalance }) => {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
@@ -51,6 +52,12 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
     console.log("Wallet disconnected");
   };
 
+  const handleBalanceClick = () => {
+    if (onOpenBalance) {
+      onOpenBalance();
+    }
+  };
+
   const toggleMusic = async (e: React.MouseEvent) => {
     e.stopPropagation();
 
@@ -74,43 +81,59 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
     return `${address.slice(0, 6)}...${address.slice(-6)}`;
   };
 
+  const balanceButton = (
+    <button
+      onClick={handleBalanceClick}
+      className={`flex items-center justify-center px-4 py-3 text-[10px] sm:text-xs uppercase tracking-wider transition-transform duration-300 transform hover:scale-105 border-2 ${
+        onOpenBalance ? "opacity-100" : "opacity-60 cursor-not-allowed"
+      }`}
+      style={{
+        borderColor: "#FFFFFF",
+        fontFamily: "'Press Start 2P', monospace",
+      }}
+      disabled={!onOpenBalance}
+    >
+      <span>Balance</span>
+    </button>
+  );
+
   return (
     <header
       className="relative z-10 border-b-2"
       style={{ borderColor: "#FFFFFF", background: "transparent" }}
     >
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex items-center justify-between">
+      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           {/* Logo and Title - Left side */}
-          <div className="flex items-center">
-            {/* <img src="/logo.png" className="w-10 h-10 mr-10"/> */}
+          <div className="flex items-center justify-between gap-4">
             <div>
               <h1
-                className="pixel-header text-3xl md:text-4xl lg:text-6xl xl:text-5xl font-black tracking-wider"
+                className="pixel-header text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-wider"
                 style={{ color: "#FFFFFF" }}
               >
                 {title}
               </h1>
             </div>
           </div>
-          <div className="flex space-x-5 items-center">
+          <div className="flex flex-wrap items-center justify-end gap-3 sm:gap-4">
             {isConnected ? (
-              <div className="flex items-center space-x-3">
+              <div className="flex flex-wrap items-center justify-end gap-3 sm:gap-4">
                 <span
-                  className={`top-6 right-28 z-40 flex items-center justify-center group h-12 w-56 p-4 md:p-6 transition-all duration-300 transform hover:scale-105 aspect-square cursor-pointer opacity-75`}
+                  className="flex items-center justify-center px-4 py-3 text-[10px] sm:text-xs uppercase tracking-wider transition-transform duration-300 transform hover:scale-105 border-2"
                   style={{
-                    border: "2px solid #FFFFFF",
+                    borderColor: "#FFFFFF",
                     fontFamily: "'Press Start 2P', monospace",
                   }}
                   title={userAddress}
                 >
                   {formatAddress(userAddress)}
                 </span>
+                {balanceButton}
                 <button
                   onClick={handleDisconnectWallet}
-                  className={`top-6 right-28 z-40 flex items-center justify-center group h-12 w-56 p-4 md:p-6 transition-all duration-300 transform hover:scale-105 aspect-square cursor-pointer opacity-75`}
+                  className="flex items-center justify-center px-4 py-3 text-[10px] sm:text-xs uppercase tracking-wider transition-transform duration-300 transform hover:scale-105 border-2"
                   style={{
-                    border: "2px solid #FFFFFF",
+                    borderColor: "#FFFFFF",
                     fontFamily: "'Press Start 2P', monospace",
                   }}
                 >
@@ -118,22 +141,27 @@ export const Header: React.FC<HeaderProps> = ({ title }) => {
                 </button>
               </div>
             ) : (
-              <button
-                onClick={handleConnectWallet}
-                className={`top-6 right-28 z-40 flex items-center justify-center group h-12 w-56 p-4 md:p-6 transition-all duration-300 transform hover:scale-105 aspect-square cursor-pointer`}
-                style={{
-                  border: "2px solid #FFFFFF",
-                  fontFamily: "'Press Start 2P', monospace",
-                }}
-              >
-                <span>Connect Wallet</span>
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={handleConnectWallet}
+                  className="flex items-center justify-center px-4 py-3 text-[10px] sm:text-xs uppercase tracking-wider transition-transform duration-300 transform hover:scale-105 border-2"
+                  style={{
+                    borderColor: "#FFFFFF",
+                    fontFamily: "'Press Start 2P', monospace",
+                  }}
+                >
+                  <span>Connect Wallet</span>
+                </button>
+                {balanceButton}
+              </div>
             )}
-            <MusicControl
-              isMusicPlaying={isMusicPlaying}
-              onToggle={toggleMusic}
-              position="top-right"
-            />
+            <div className="relative">
+              <MusicControl
+                isMusicPlaying={isMusicPlaying}
+                onToggle={toggleMusic}
+                position="top-right"
+              />
+            </div>
           </div>
         </div>
       </div>
