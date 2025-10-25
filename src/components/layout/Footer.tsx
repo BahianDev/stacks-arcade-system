@@ -43,7 +43,7 @@ export const Footer: React.FC<FooterProps> = ({
               color: '#FFFFFF',
               fontFamily: "'Press Start 2P', monospace"
             }}>
-              © 2025 SANSALABS • RETRO ARCADE COLLECTION
+              © 2025 RETRO ARCADE COLLECTION
             </p>
           </div>
           

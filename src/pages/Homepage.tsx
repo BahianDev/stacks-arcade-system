@@ -104,7 +104,7 @@ export const Homepage: React.FC = () => {
         style={{ color: "#FFFFFF" }}
       >
         {/* Header */}
-        <Header title="SANSA ARCADE" />
+        <Header title="STACKS ARCADE" />
         <button onClick={() => setShowModal(true)}>show</button>
 
         {/* Main Content - Properly scrollable */}
