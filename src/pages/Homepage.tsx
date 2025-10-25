@@ -5,8 +5,6 @@ import { Header } from "../components/layout/Header";
 import { Footer } from "../components/layout/Footer";
 import { audioManager } from "../utils/audio";
 import { HotWalletModal } from "../components/ui/HotWalletModal";
-import toast from "react-hot-toast";
-import { handleRecordActions } from "../utils/actions";
 
 const games = [
   {
