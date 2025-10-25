@@ -102,15 +102,17 @@ export const Homepage: React.FC = () => {
         style={{ color: "#FFFFFF" }}
       >
         {/* Header */}
-        <Header title="STACKS ARCADE" />
-        <button onClick={() => setShowModal(true)}>show</button>
+        <Header
+          title="STACKS ARCADE"
+          onOpenBalance={() => setShowModal(true)}
+        />
 
         {/* Main Content - Properly scrollable */}
-        <main className="relative z-10 container mx-auto px-4 py-8">
+        <main className="relative z-10 container mx-auto px-4 sm:px-6 py-6 sm:py-8">
           {/* Featured Section */}
-          <div className="mb-6 flex ">
+          <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-center sm:text-left">
             <h2
-              className="text-xl md:text-2xl font-bold mb-2 tracking-wider"
+              className="text-lg sm:text-xl md:text-2xl font-bold tracking-wider"
               style={{
                 color: "#FFFFFF",
                 textShadow: "0 0 5px #FFFFFF",
@@ -121,7 +123,7 @@ export const Homepage: React.FC = () => {
           </div>
 
           {/* Games Grid - 3 columns, 2 rows layout */}
-          <div className="grid grid-cols-3 gap-6 md:gap-8 lg:gap-10 mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-16">
             {filteredGames.map((game) => {
               const IconComponent = game.icon;
               return (
@@ -129,7 +131,7 @@ export const Homepage: React.FC = () => {
                   key={game.id}
                   onClick={() => handleGameClick(game)}
                   className={`
-                  relative group p-4 md:p-6 
+                  relative group p-4 sm:p-6
                   transition-all duration-300 transform hover:scale-105 aspect-square
                   ${
                     game.status === "available"
@@ -241,7 +243,7 @@ export const Homepage: React.FC = () => {
                       game.id === "word-up" ? (
                         // Games with logos: Show description on all screen sizes, moved up
                         <p
-                          className="text-xs lg:text-sm tracking-wide leading-relaxed font-mono -mt-2"
+                          className="text-[10px] sm:text-xs lg:text-sm tracking-wide leading-relaxed font-mono -mt-2"
                           style={{
                             color: "#FFFFFF",
                             fontFamily: "'Press Start 2P', monospace",
@@ -275,7 +277,7 @@ export const Homepage: React.FC = () => {
                       >
                         {game.status === "available" ? (
                           <div
-                            className="inline-block px-2 md:px-3 py-1 text-black text-xs font-bold tracking-wider font-mono"
+                            className="inline-block px-2 md:px-3 py-1 text-black text-[10px] sm:text-xs font-bold tracking-wider font-mono"
                             style={{
                               backgroundColor: "#FFFFFF",
                               fontFamily: "'Press Start 2P', monospace",
@@ -285,7 +287,7 @@ export const Homepage: React.FC = () => {
                           </div>
                         ) : (
                           <div
-                            className="inline-block px-2 md:px-3 py-1 border text-xs font-bold tracking-wider font-mono"
+                            className="inline-block px-2 md:px-3 py-1 border text-[10px] sm:text-xs font-bold tracking-wider font-mono"
                             style={{
                               borderColor: "#4FA83F",
                               color: "#4FA83F",
